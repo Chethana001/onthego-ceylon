@@ -1,0 +1,202 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+
+import imgSigiriya from '../assets/sigiriya.jpg';
+import imgElla from '../assets/ella.jpg';
+import imgKandy from '../assets/kandy.jpg';
+import imgYala from '../assets/yala.jpg';
+import imgGalle from '../assets/galle.jpg';
+import imgNuwaraEliya from '../assets/nuwara-eliya.jpg';
+
+const destinations = [
+  {
+    id: 'sigiriya',
+    name: 'Sigiriya Rock Fortress',
+    region: 'Central Province / Cultural Triangle',
+    image: imgSigiriya,
+    description:
+      'Known as the 8th Wonder of the World, this ancient 5th-century citadel towers nearly 200 meters above dense jungle plains. Marvel at world-renowned rock frescoes, the reflective mirror wall, and panoramic summit vistas of king Kashyapa\'s palace ruins.',
+    highlights: ['Ancient Lion Paws Staircase', '5th-Century Frescoes', 'Royal Water Gardens', 'Panoramic 360° Jungle Views'],
+    bestTime: 'December to April',
+    idealStay: '1 - 2 Days',
+  },
+  {
+    id: 'ella',
+    name: 'Ella (Nine Arch Bridge)',
+    region: 'Badulla District / Uva Province',
+    image: imgElla,
+    description:
+      'A serene mountain sanctuary surrounded by emerald tea hills. The iconic Nine Arch Bridge stands as an engineering masterpiece built entirely of brick and stone without steel, where vintage blue trains glide amidst misty valleys.',
+    highlights: ['Nine Arch Stone Viaduct', 'Little Adam\'s Peak Hike', 'Ravana Falls', 'Famous Scenic Train Route'],
+    bestTime: 'January to May',
+    idealStay: '2 - 3 Days',
+  },
+  {
+    id: 'kandy',
+    name: 'Kandy',
+    region: 'Central Province',
+    image: imgKandy,
+    description:
+      'The last royal capital of Sri Lanka and spiritual heart of the nation. Encircled by forested hills and a placid lake, Kandy houses the sacred relic of the tooth of the Buddha inside the gilded Sri Dalada Maligawa temple complex.',
+    highlights: ['Temple of the Sacred Tooth Relic', 'Royal Botanical Gardens Peradeniya', 'Kandy Lake Walk', 'Traditional Kandyan Dance'],
+    bestTime: 'December to April',
+    idealStay: '1 - 2 Days',
+  },
+  {
+    id: 'yala',
+    name: 'Yala National Park',
+    region: 'Southern & Uva Provinces',
+    image: imgYala,
+    description:
+      'Sri Lanka\'s premier wildlife safari sanctuary boasting the highest density of leopards on planet Earth. Roam across dry-zone woodlands, coastal lagoons, and open plains teeming with wild elephants, sloth bears, spotted deer, and crocodiles.',
+    highlights: ['Sri Lankan Leopard Tracking', 'Wild Elephant Herds', 'Open 4x4 Safari Jeeps', 'Over 215 Bird Species'],
+    bestTime: 'February to July',
+    idealStay: '1 - 2 Days',
+  },
+  {
+    id: 'galle-fort',
+    name: 'Galle Fort',
+    region: 'Southern Province',
+    image: imgGalle,
+    description:
+      'A UNESCO World Heritage maritime fortress originally founded by the Portuguese in 1588 and extensively fortified by the Dutch. Wander through cobblestone lanes filled with boutique gem stores, colonial villas, cozy cafes, and the sunset lighthouse ramparts.',
+    highlights: ['Iconic White Lighthouse', 'Dutch Reformed Church', 'Sunset Ocean Ramparts Walk', 'Artisan Boutiques & Cafes'],
+    bestTime: 'November to April',
+    idealStay: '1 - 2 Days',
+  },
+  {
+    id: 'nuwara-eliya',
+    name: 'Nuwara Eliya',
+    region: 'Central Highlands',
+    image: imgNuwaraEliya,
+    description:
+      'Nestled at an elevation of 1,868 meters, "Little England" welcomes you with crisp cool mountain air, manicured colonial gardens, Victorian estates, and endless undulating emerald slopes of world-famous Ceylon single-estate tea.',
+    highlights: ['High-Grown Tea Factory Tours', 'Gregory Lake Boat Rides', 'Horton Plains & World\'s End', 'Ramboda & Lovers Leap Falls'],
+    bestTime: 'March to June & Dec to Feb',
+    idealStay: '2 Days',
+  },
+];
+---
+
+<Layout
+  title="Destinations in Sri Lanka | On The Go Ceylon"
+  description="Explore the best Sri Lankan destinations with On The Go Ceylon. From Sigiriya Rock and Ella Nine Arch Bridge to Yala safaris and Galle Fort."
+>
+  <!-- Page Header -->
+  <section class="relative py-20 bg-gray-100 dark:bg-brand-black border-b border-gray-200 dark:border-white/10 transition-colors duration-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <span class="inline-block text-brand-gold text-xs font-bold tracking-widest uppercase mb-3">
+        Discover Sri Lanka
+      </span>
+      <h1 class="text-4xl sm:text-6xl font-extrabold text-gray-900 dark:text-white tracking-tight">
+        Curated Destinations
+      </h1>
+      <p class="max-w-2xl mx-auto mt-4 text-gray-600 dark:text-gray-400 text-base sm:text-lg">
+        Explore ancient kingdoms, misty mountain passes, coastal fortresses, and untamed wildlife reserves—tailored with private chauffeur transport.
+      </p>
+    </div>
+  </section>
+
+  <!-- Destinations Grid Section -->
+  <section class="py-20 bg-gray-50 dark:bg-brand-dark transition-colors duration-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Responsive Grid of Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {destinations.map((dest) => (
+          <div
+            id={dest.id}
+            class="group bg-white dark:bg-brand-black rounded-2xl overflow-hidden border border-gray-200 dark:border-white/10 shadow-md hover:shadow-2xl hover:border-brand-gold/50 hover:scale-105 transition-all duration-300 flex flex-col fade-in-element"
+          >
+            <!-- Card Image -->
+            <div class="relative h-64 overflow-hidden">
+              <Image
+                src={dest.image}
+                alt={dest.name}
+                width={800}
+                height={512}
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80"></div>
+              
+              <!-- Region Badge -->
+              <span class="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-semibold bg-brand-black/85 text-brand-gold backdrop-blur-md border border-brand-gold/30">
+                {dest.region}
+              </span>
+            </div>
+
+            <!-- Card Body -->
+            <div class="p-6 sm:p-7 flex-1 flex flex-col justify-between">
+              <div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white group-hover:text-brand-gold transition-colors">
+                  {dest.name}
+                </h2>
+                <p class="text-sm text-gray-600 dark:text-gray-300 mt-3 leading-relaxed">
+                  {dest.description}
+                </p>
+
+                <!-- Highlights Badges -->
+                <div class="mt-5">
+                  <span class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider block mb-2">Key Highlights</span>
+                  <div class="flex flex-wrap gap-1.5">
+                    {dest.highlights.map((h) => (
+                      <span class="px-2.5 py-1 text-xs rounded-md bg-gray-100 dark:bg-white/5 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-white/10">
+                        {h}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <!-- Travel Details & Action -->
+              <div class="mt-6 pt-5 border-t border-gray-200 dark:border-white/10">
+                <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mb-4">
+                  <div>
+                    <span class="block text-gray-400 dark:text-gray-500">Best Season</span>
+                    <span class="font-medium text-gray-900 dark:text-white">{dest.bestTime}</span>
+                  </div>
+                  <div class="text-right">
+                    <span class="block text-gray-400 dark:text-gray-500">Recommended</span>
+                    <span class="font-medium text-brand-gold">{dest.idealStay}</span>
+                  </div>
+                </div>
+
+                <a
+                  href={`/contact?destination=${encodeURIComponent(dest.name)}`}
+                  class="w-full inline-flex items-center justify-center py-2.5 px-4 rounded-lg bg-brand-gold text-brand-black font-bold hover:scale-105 transition-transform text-sm shadow-md"
+                >
+                  Plan Trip to {dest.name.split(' ')[0]}
+                </a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom Planning Section -->
+  <section class="py-16 bg-white dark:bg-brand-black border-t border-gray-200 dark:border-white/10 text-center transition-colors duration-200">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 fade-in-element">
+      <h2 class="text-3xl font-bold text-gray-900 dark:text-white">Want to combine multiple destinations?</h2>
+      <p class="text-gray-600 dark:text-gray-400 mt-3 max-w-xl mx-auto text-base">
+        Our travel coordinators craft multi-day itineraries customized to your arrival time, interests, and preferred pace of travel.
+      </p>
+      <div class="mt-8 flex flex-wrap justify-center gap-4">
+        <a
+          href="/tours"
+          class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-brand-gold text-brand-black font-bold hover:scale-105 transition-transform"
+        >
+          View Tour Packages
+        </a>
+        <a
+          href="/contact"
+          class="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-gray-100 dark:bg-white/10 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-white/20 font-semibold border border-gray-300 dark:border-white/20 transition-all"
+        >
+          Request Custom Route
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

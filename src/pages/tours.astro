@@ -1,0 +1,257 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+
+import imgSigiriya2 from '../assets/sigiriya2.jpg';
+import imgella2 from '../assets/ella2.jpg';
+import imgGalle2 from '../assets/galle2.jpg';
+
+
+
+const tourPackages = [
+  {
+    id: 'cultural-triangle',
+    title: 'Cultural Triangle Expedition',
+    duration: '5 Days / 4 Nights',
+    price: null, // Price hidden on request — the other tours still show theirs
+    image: imgSigiriya2,
+    tag: 'UNESCO Heritage & Ancient Wonder',
+    description:
+      'Step into thousands of years of royal Sri Lankan history. Explore the sacred ancient ruins of Anuradhapura and Polonnaruwa, scale the iconic Sigiriya Rock Citadel, and marvel at the golden cave temples of Dambulla.',
+    itinerary: [
+      'Day 1: Airport pick-up & transfer to Dambulla Cave Temple',
+      'Day 2: Sigiriya Lion Rock Fortress climb & Minneriya elephant gathering',
+      'Day 3: Sacred kingdom of Polonnaruwa archaeological wonders',
+      'Day 4: Ancient Anuradhapura stupas & Bodhi Tree veneration',
+      'Day 5: Matale spice gardens & transfer to Kandy / Airport',
+    ],
+    vehicleType: 'Private AC Luxury Sedan or Van',
+  },
+  {
+    id: 'hill-country',
+    title: 'Hill Country & Misty Tea Trails',
+    duration: '6 Days / 5 Nights',
+    price: null,
+    image: imgella2,
+    tag: 'Scenic Highlands & Vintage Railway',
+    description:
+      'Journey through emerald tea-carpeted mountains, cascading waterfalls, and cool highland air. Ride the world-famous blue train over the Nine Arch Bridge and hike along scenic peaks in Ella and Nuwara Eliya.',
+    itinerary: [
+      'Day 1: Colombo to Kandy, Temple of the Tooth & Royal Botanical Gardens',
+      'Day 2: Tea plantation estate, Pedro tea factory & Nuwara Eliya colonial town',
+      'Day 3: Horton Plains trek to World’s End cliff & Baker’s Falls',
+      'Day 4: Scenic Highland Train ride across Demodara Nine Arch Bridge to Ella',
+      'Day 5: Little Adam’s Peak sunrise hike & Ravana Waterfall expedition',
+      'Day 6: Transfer back to Colombo or Southern Coast',
+    ],
+    vehicleType: 'Private AC SUV or Luxury Van',
+  },
+  {
+    id: 'wildlife-safari',
+    title: 'Wildlife Safari & Leopard Expedition',
+    duration: '4 Days / 3 Nights',
+    price: null,
+    image: 'https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&w=1200&q=80',
+    tag: 'Big Game Wildlife & Coastal Wilderness',
+    description:
+      'Immerse yourself in Sri Lanka’s untamed wilderness. Embark on custom 4x4 open safari jeeps with veteran wildlife spotters in search of wild leopards, sloth bears, massive herds of Asian elephants, and exotic tropical birds.',
+    itinerary: [
+      'Day 1: Transfer from Colombo to Udawalawe National Park & Elephant Transit Home',
+      'Day 2: Morning safari in Udawalawe; scenic drive to Yala coastal sanctuary',
+      'Day 3: Full-day dawn-to-dusk 4x4 open safari in Yala Block 1 for leopards & bears',
+      'Day 4: Bundala migratory bird wetland safari & return transfer',
+    ],
+    vehicleType: 'Private AC Transfer + 4x4 Open Safari Jeep',
+  },
+  {
+    id: 'beach-retreat',
+    title: 'Southern Coastal & Beach Retreat',
+    duration: '5 Days / 4 Nights',
+    price: null,
+    image: imgGalle2,
+    tag: 'Sun, Surf & UNESCO Fortress',
+    description:
+      'Unwind along Sri Lanka’s palm-fringed southern shoreline. Walk the historic ramparts of Galle Fort, embark on morning whale-watching voyages from Mirissa, and bask in the golden sands of tropical coastal bays.',
+    itinerary: [
+      'Day 1: Scenic southern coastal expressway transfer to Bentota & river safari',
+      'Day 2: Historic Galle Fort walking tour, Maritime Museum & sunset lighthouse',
+      'Day 3: Mirissa morning Blue Whale watching excursion & Coconut Tree Hill',
+      'Day 4: Relaxing beach day, surf lessons, or luxury Ayurvedic spa treatment',
+      'Day 5: Sea Turtle conservation project visit & transfer to Airport / Colombo',
+    ],
+    vehicleType: 'Private AC Luxury Sedan or Van',
+  },
+];
+
+const includedFeatures = [
+  'Dedicated English-speaking certified chauffeur guide',
+  'Private air-conditioned luxury vehicle (fuel, parking & highway tolls included)',
+  'Complimentary high-speed in-vehicle Wi-Fi and chilled bottled water',
+  '24/7 on-the-road concierge and itinerary coordination',
+  'Flexible photo stops and meal stops according to your preferences',
+  'Door-to-door VIP airport greeting and hotel transfers',
+];
+---
+
+<Layout
+  title="Tour Packages in Sri Lanka | On The Go Ceylon"
+  description="Browse our hand-crafted Sri Lanka tour packages: Cultural Triangle, Hill Country, Wildlife Safari, and Beach Retreat with private chauffeur guides."
+>
+  <!-- Page Header -->
+  <section class="relative py-20 bg-gray-100 dark:bg-brand-black border-b border-gray-200 dark:border-white/10 transition-colors duration-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <span class="inline-block text-brand-gold text-xs font-bold tracking-widest uppercase mb-3">
+        Tailored Journeys
+      </span>
+      <h1 class="text-4xl sm:text-6xl font-extrabold text-gray-900 dark:text-white tracking-tight">
+        Curated Tour Packages
+      </h1>
+      <p class="max-w-2xl mx-auto mt-4 text-gray-600 dark:text-gray-400 text-base sm:text-lg">
+        Private chauffeur-driven itineraries tailored for comfort, flexibility, and authentic Sri Lankan memories. Every package is fully customizable.
+      </p>
+    </div>
+  </section>
+
+  <!-- Tours List Section -->
+  <section class="py-20 bg-gray-50 dark:bg-brand-dark transition-colors duration-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="space-y-12">
+        {tourPackages.map((tour) => (
+          <div
+            id={tour.id}
+            class="bg-white dark:bg-brand-black rounded-3xl overflow-hidden border border-gray-200 dark:border-white/10 shadow-xl hover:border-brand-gold/40 transition-all duration-300 grid grid-cols-1 lg:grid-cols-12 gap-0 fade-in-element"
+          >
+            <!-- Tour Image -->
+            <div class="lg:col-span-5 relative min-h-[320px] lg:min-h-full overflow-hidden">
+              {typeof tour.image === 'object' ? (
+                <Image
+                  src={tour.image}
+                  alt={tour.title}
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                  loading="lazy"
+                />
+              ) : (
+                <img
+                  src={tour.image}
+                  alt={tour.title}
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                  loading="lazy"
+                />
+              )}
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent lg:hidden"></div>
+              <span class="absolute top-4 left-4 px-3.5 py-1.5 rounded-full text-xs font-bold bg-brand-black/85 text-brand-gold backdrop-blur-md border border-brand-gold/30">
+                {tour.tag}
+              </span>
+            </div>
+
+            <!-- Tour Details -->
+            <div class="lg:col-span-7 p-6 sm:p-10 flex flex-col justify-between">
+              <div>
+                <div class="flex flex-wrap items-center justify-between gap-4 mb-3">
+                  <div class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 font-medium">
+                    <svg class="w-4 h-4 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>{tour.duration}</span>
+                  </div>
+
+                  <!-- Price (rendered only for tours that define one) -->
+                  {tour.price && (
+                    <div class="text-right">
+                      <span class="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider block">Starting From</span>
+                      <span class="text-2xl sm:text-3xl font-extrabold text-brand-gold">{tour.price}</span>
+                      <span class="text-xs text-gray-500 dark:text-gray-400"> / person</span>
+                    </div>
+                  )}
+                </div>
+
+                <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white tracking-tight hover:text-brand-gold transition-colors">
+                  {tour.title}
+                </h2>
+
+                <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 mt-4 leading-relaxed">
+                  {tour.description}
+                </p>
+
+                <!-- Itinerary Highlights List -->
+                <div class="mt-6 bg-gray-50 dark:bg-brand-dark/70 rounded-2xl p-5 border border-gray-200 dark:border-white/5">
+                  <h3 class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">
+                    Sample Day-by-Day Highlights
+                  </h3>
+                  <ul class="space-y-2 text-xs sm:text-sm text-gray-700 dark:text-gray-300">
+                    {tour.itinerary.map((day) => (
+                      <li class="flex items-start gap-2.5">
+                        <span class="text-brand-gold mt-0.5">&bull;</span>
+                        <span>{day}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Action & Vehicle Info -->
+              <div class="mt-8 pt-6 border-t border-gray-200 dark:border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-2">
+                  <svg class="w-4 h-4 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Vehicle: <strong class="text-gray-900 dark:text-white">{tour.vehicleType}</strong></span>
+                </div>
+
+                <!-- Primary Inquire Button -->
+                <a
+                  href={`/contact?tour=${encodeURIComponent(tour.title)}`}
+                  class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-brand-gold text-brand-black font-bold hover:scale-105 transition-transform shadow-lg shadow-brand-gold/20 text-sm"
+                >
+                  Inquire Now
+                </a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Included In Every Package Section -->
+  <section class="py-20 bg-white dark:bg-brand-black border-t border-gray-200 dark:border-white/10 transition-colors duration-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto text-center mb-14 fade-in-element">
+        <span class="text-brand-gold text-xs font-bold tracking-widest uppercase">The Solutions on Wheels Promise</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white mt-2">Included In Every Journey</h2>
+        <p class="text-gray-600 dark:text-gray-400 mt-3 text-base">
+          No hidden fees, no fuel surcharges. Transparent pricing and premium VIP hospitality from start to finish.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {includedFeatures.map((feature) => (
+          <div class="flex items-start gap-3.5 p-5 rounded-2xl bg-gray-50 dark:bg-brand-dark/50 border border-gray-200 dark:border-white/5 fade-in-element">
+            <div class="w-6 h-6 rounded-full bg-brand-gold/20 flex items-center justify-center text-brand-gold shrink-0 mt-0.5">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <span class="text-sm text-gray-700 dark:text-gray-300 font-medium leading-relaxed">{feature}</span>
+          </div>
+        ))}
+      </div>
+
+      <!-- Custom Tour Box -->
+      <div class="mt-16 p-8 sm:p-10 rounded-3xl bg-white dark:bg-brand-black border border-gray-200 dark:border-brand-gold/30 shadow-xl dark:shadow-2xl text-center max-w-4xl mx-auto fade-in-element transition-colors duration-200">
+        <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Need a Completely Custom Tour Route?</h3>
+        <p class="text-gray-600 dark:text-gray-300 mt-2 text-sm sm:text-base max-w-xl mx-auto">
+          We specialize in bespoke travel. Tell us your available days, group size, and preferred destinations, and our team will build a free personalized itinerary.
+        </p>
+        <div class="mt-6">
+          <a
+            href="/contact"
+            class="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-brand-gold text-brand-black font-bold hover:scale-105 transition-transform shadow-md border border-brand-gold/80"
+          >
+            Create Custom Tour Itinerary
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

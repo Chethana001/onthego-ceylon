@@ -1,0 +1,556 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: string;
+  canonical?: string;
+}
+
+const {
+  title = "On The Go Ceylon | Solutions on Wheels - Sri Lanka Private Tours",
+  description = "Experience Sri Lanka with On The Go Ceylon - Solutions on Wheels. Tailor-made luxury private tours, chauffeur guides, and unforgettable journeys across the Pearl of the Indian Ocean.",
+  image = "https://images.unsplash.com/photo-1586861635167-e5223aadc9fe?auto=format&fit=crop&w=1200&q=80",
+  type = "website",
+  canonical = Astro.url.href,
+} = Astro.props;
+
+const currentPath = Astro.url.pathname;
+// The homepage has a cinematic dark hero image, so the header can float transparently over it.
+const isHome = currentPath === "/";
+
+const navLinks = [
+  { href: "/", label: "Home" },
+  { href: "/destinations", label: "Destinations" },
+  { href: "/tours", label: "Tours" },
+  { href: "/contact", label: "Contact" },
+];
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#F9A826" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Anti-FOUC Theme Script: Prevents flash of wrong theme on page load -->
+    <script is:inline>
+      const getInitialTheme = () => {
+        if (
+          typeof localStorage !== "undefined" &&
+          localStorage.getItem("theme")
+        ) {
+          return localStorage.getItem("theme");
+        }
+        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+          return "dark";
+        }
+        return "light";
+      };
+      if (getInitialTheme() === "dark") {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+    </script>
+
+    <!-- SEO Meta Tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta
+      name="keywords"
+      content="Sri Lanka tours, On The Go Ceylon, Solutions on Wheels, Sigiriya, Ella, Kandy, Yala safari, private chauffeur Sri Lanka, luxury Sri Lanka travel"
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+    <meta property="og:site_name" content="On The Go Ceylon" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonical} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  </head>
+  <body
+    class="min-h-screen flex flex-col bg-slate-50 text-gray-600 dark:bg-[#111111] dark:text-white font-sans antialiased selection:bg-brand-gold selection:text-brand-black transition-colors duration-200"
+  >
+    <!-- Navigation Header (light-mode: floats as dark glass over the homepage hero, turns solid after scrolling) -->
+    <header
+      id="site-header"
+      data-header-overlay={isHome ? "true" : undefined}
+      class="sticky top-0 inset-x-0 z-50 border-b border-gray-200 dark:border-white/10 bg-white/95 dark:bg-brand-dark/95 backdrop-blur-md shadow-sm transition-[background-color,border-color,box-shadow] duration-300"
+    >
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between"
+      >
+        <!-- Logo with Dark Mode Visibility Drop Shadow -->
+        <a
+          href="/"
+          class="flex items-center gap-3 transition-opacity hover:opacity-95"
+          aria-label="On The Go Ceylon Homepage"
+        >
+          <img
+            src="/logo.png"
+            alt="On The Go Ceylon - Solutions on Wheels Logo"
+            class="h-16 w-auto object-contain transition-all duration-200 dark:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]"
+          />
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav
+          class="hidden md:flex items-center gap-7"
+          aria-label="Main Navigation"
+        >
+          {
+            navLinks.map((link) => {
+              const isActive =
+                currentPath === link.href ||
+                (link.href !== "/" && currentPath.startsWith(link.href));
+              return (
+                <a
+                  href={link.href}
+                  class={`nav-link text-sm font-semibold tracking-wide transition-colors ${
+                    isActive
+                      ? "nav-link-active text-brand-gold border-b-2 border-brand-gold pb-1"
+                      : "text-brand-black dark:text-white hover:text-brand-gold dark:hover:text-brand-gold"
+                  }`}
+                >
+                  {link.label}
+                </a>
+              );
+            })
+          }
+
+          <div class="flex items-center gap-3 pl-2">
+            <!-- Day/Night Sun/Moon Toggle Button (Desktop) -->
+            <button
+              id="theme-toggle-desktop"
+              type="button"
+              class="nav-control p-2.5 rounded-xl border border-gray-200 dark:border-white/10 text-gray-700 dark:text-gray-200 hover:text-brand-gold dark:hover:text-brand-gold bg-gray-100 dark:bg-white/5 hover:bg-gray-200 dark:hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-brand-gold cursor-pointer"
+              aria-label="Toggle light and dark mode"
+              title="Toggle Day/Night Mode"
+            >
+              <!-- Sun Icon (shown in dark mode) -->
+              <svg
+                class="w-5 h-5 hidden dark:block text-brand-gold transition-transform duration-300 hover:rotate-45"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                ></path>
+              </svg>
+              <!-- Moon Icon (shown in light mode) -->
+              <svg
+                class="w-5 h-5 block dark:hidden text-brand-black transition-transform duration-300 hover:-rotate-12"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+                ></path>
+              </svg>
+            </button>
+
+            <!-- 'Inquire Now' Primary Button -->
+            <a
+              href="/contact"
+              class="inline-flex items-center justify-center px-5 py-2.5 rounded-lg bg-brand-gold text-brand-black font-bold hover:scale-105 transition-transform shadow-md hover:shadow-brand-gold/25 border border-brand-gold/80"
+            >
+              Inquire Now
+            </a>
+          </div>
+        </nav>
+
+        <!-- Mobile Controls (Theme Toggle + Hamburger) -->
+        <div class="flex items-center gap-2 md:hidden">
+          <!-- Mobile Theme Toggle -->
+          <button
+            id="theme-toggle-mobile"
+            type="button"
+            class="nav-control p-2 rounded-lg border border-gray-200 dark:border-white/10 text-brand-black dark:text-white hover:text-brand-gold hover:bg-gray-100 dark:hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-brand-gold transition-colors cursor-pointer"
+            aria-label="Toggle light and dark mode"
+          >
+            <!-- Sun Icon -->
+            <svg
+              class="w-5 h-5 hidden dark:block text-brand-gold"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+              ></path>
+            </svg>
+            <!-- Moon Icon -->
+            <svg
+              class="w-5 h-5 block dark:hidden text-brand-black"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+              ></path>
+            </svg>
+          </button>
+
+          <!-- Mobile Menu Toggle Button -->
+          <button
+            id="mobile-menu-btn"
+            type="button"
+            class="nav-control p-2 rounded-lg text-brand-black dark:text-white hover:text-brand-gold hover:bg-gray-100 dark:hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-brand-gold transition-colors"
+            aria-label="Toggle navigation menu"
+            aria-expanded="false"
+            aria-controls="mobile-menu"
+          >
+            <!-- Hamburger Icon -->
+            <svg
+              id="menu-icon-open"
+              class="w-7 h-7 block"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+            <!-- Close Icon -->
+            <svg
+              id="menu-icon-close"
+              class="w-7 h-7 hidden"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Dropdown Menu -->
+      <div
+        id="mobile-menu"
+        class="hidden md:hidden border-t border-gray-200 dark:border-white/10 bg-white dark:bg-brand-dark px-4 pt-3 pb-6 space-y-3 transition-all duration-300 shadow-md"
+      >
+        {
+          navLinks.map((link) => {
+            const isActive =
+              currentPath === link.href ||
+              (link.href !== "/" && currentPath.startsWith(link.href));
+            return (
+              <a
+                href={link.href}
+                class={`block py-2.5 px-3 rounded-md text-base font-semibold transition-colors ${
+                  isActive
+                    ? "bg-gray-100 dark:bg-white/5 text-brand-gold"
+                    : "text-brand-black dark:text-white hover:bg-gray-50 dark:hover:bg-white/5 hover:text-brand-gold"
+                }`}
+              >
+                {link.label}
+              </a>
+            );
+          })
+        }
+        <div class="pt-2">
+          <a
+            href="/contact"
+            class="w-full inline-flex items-center justify-center px-5 py-3 rounded-lg bg-brand-gold text-brand-black font-bold hover:scale-105 transition-transform text-center shadow-md border border-brand-gold/80"
+          >
+            Inquire Now
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1">
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <footer
+      class="bg-gray-50 dark:bg-brand-black text-gray-800 dark:text-gray-300 border-t border-gray-200 dark:border-white/10 pt-16 pb-12 transition-colors duration-200"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          class="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-gray-200 dark:border-white/10"
+        >
+          <!-- Col 1: Brand -->
+          <div class="md:col-span-1 space-y-4">
+            <a
+              href="/"
+              class="inline-block"
+              aria-label="On The Go Ceylon Homepage"
+            >
+              <img
+                src="/logo.png"
+                alt="On The Go Ceylon - Solutions on Wheels"
+                class="h-16 w-auto object-contain dark:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]"
+              />
+            </a>
+            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+              Premium travel & private transport solutions across Sri Lanka.
+              Tailor-made journeys, certified chauffeur-guides, and curated
+              adventures on wheels.
+            </p>
+          </div>
+
+          <!-- Col 2: Quick Links -->
+          <div>
+            <h3
+              class="text-xs font-bold tracking-wider uppercase text-gray-900 dark:text-white mb-4"
+            >
+              Quick Links
+            </h3>
+            <ul class="space-y-2.5 text-sm">
+              <li>
+                <a
+                  href="/"
+                  class="text-gray-600 dark:text-gray-400 hover:text-brand-gold dark:hover:text-brand-gold transition-colors"
+                  >Home</a>
+              </li>
+              <li>
+                <a
+                  href="/destinations"
+                  class="text-gray-600 dark:text-gray-400 hover:text-brand-gold dark:hover:text-brand-gold transition-colors"
+                  >Destinations</a>
+              </li>
+              <li>
+                <a
+                  href="/tours"
+                  class="text-gray-600 dark:text-gray-400 hover:text-brand-gold dark:hover:text-brand-gold transition-colors"
+                  >Tour Packages</a>
+              </li>
+              <li>
+                <a
+                  href="/contact"
+                  class="text-gray-600 dark:text-gray-400 hover:text-brand-gold dark:hover:text-brand-gold transition-colors"
+                  >Contact & Inquiry</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Col 3: Popular Tours -->
+          <div>
+            <h3
+              class="text-xs font-bold tracking-wider uppercase text-gray-900 dark:text-white mb-4"
+            >
+              Featured Tours
+            </h3>
+            <ul class="space-y-2.5 text-sm">
+              <li>
+                <a
+                  href="/tours#cultural-triangle"
+                  class="text-gray-600 dark:text-gray-400 hover:text-brand-gold dark:hover:text-brand-gold transition-colors"
+                  >Cultural Triangle</a>
+              </li>
+              <li>
+                <a
+                  href="/tours#hill-country"
+                  class="text-gray-600 dark:text-gray-400 hover:text-brand-gold dark:hover:text-brand-gold transition-colors"
+                  >Hill Country Odyssey</a>
+              </li>
+              <li>
+                <a
+                  href="/tours#wildlife-safari"
+                  class="text-gray-600 dark:text-gray-400 hover:text-brand-gold dark:hover:text-brand-gold transition-colors"
+                  >Wildlife Safari</a>
+              </li>
+              <li>
+                <a
+                  href="/tours#beach-retreat"
+                  class="text-gray-600 dark:text-gray-400 hover:text-brand-gold dark:hover:text-brand-gold transition-colors"
+                  >Tropical Beach Retreat</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Col 4: Contact & Solutions on Wheels -->
+          <div>
+            <h3
+              class="text-xs font-bold tracking-wider uppercase text-gray-900 dark:text-white mb-4"
+            >
+              Solutions on Wheels
+            </h3>
+            <div class="space-y-2.5 text-sm text-gray-600 dark:text-gray-400">
+              <p>Private AC Vans, Luxury Sedans & SUVs</p>
+              <p>English & Multilingual Speaking Chauffeurs</p>
+              <p class="pt-2">
+                <span class="text-gray-900 dark:text-white font-semibold"
+                  >Head Office:</span
+                > Yakkala, Sri Lanka
+              </p>
+              <p>
+                <a
+                  href="mailto:info@onthegoceylon.com"
+                  class="text-gray-800 dark:text-brand-gold hover:text-brand-gold font-medium transition-colors"
+                  >info@onthegoceylon.com</a
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div
+          class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500"
+        >
+          <p>
+            &copy; {new Date().getFullYear()} On The Go Ceylon - Solutions on Wheels.
+            All rights reserved.
+          </p>
+          <div class="flex items-center gap-6">
+            <a
+              href="/contact"
+              class="text-gray-600 dark:text-gray-400 hover:text-brand-gold transition-colors"
+              >Privacy Policy</a
+            >
+            <a
+              href="/contact"
+              class="text-gray-600 dark:text-gray-400 hover:text-brand-gold transition-colors"
+              >Terms of Service</a
+            >
+            <a
+              href="/contact"
+              class="text-gray-600 dark:text-gray-400 hover:text-brand-gold transition-colors"
+              >Support</a
+            >
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Minimal JavaScript: Theme Toggle, Responsive Mobile Menu & Intersection Observer for Scroll Fade -->
+    <script is:inline>
+      // Theme Toggle Handler
+      const toggleTheme = () => {
+        const isDark = document.documentElement.classList.toggle("dark");
+        if (typeof localStorage !== "undefined") {
+          localStorage.setItem("theme", isDark ? "dark" : "light");
+        }
+      };
+
+      const btnDesktop = document.getElementById("theme-toggle-desktop");
+      const btnMobile = document.getElementById("theme-toggle-mobile");
+
+      if (btnDesktop) btnDesktop.addEventListener("click", toggleTheme);
+      if (btnMobile) btnMobile.addEventListener("click", toggleTheme);
+
+      // Scroll-aware Header (homepage): transparent glass over the hero, solid after scrolling
+      const header = document.getElementById("site-header");
+      if (header && header.hasAttribute("data-header-overlay")) {
+        const updateHeader = () => {
+          if (window.scrollY > 24) {
+            header.classList.add("is-solid");
+          } else {
+            header.classList.remove("is-solid");
+          }
+        };
+        updateHeader();
+        window.addEventListener("scroll", updateHeader, { passive: true });
+      }
+
+      // Responsive Hamburger Menu
+      const menuBtn = document.getElementById("mobile-menu-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const iconOpen = document.getElementById("menu-icon-open");
+      const iconClose = document.getElementById("menu-icon-close");
+
+      if (menuBtn && mobileMenu && iconOpen && iconClose) {
+        menuBtn.addEventListener("click", () => {
+          const isOpen = !mobileMenu.classList.contains("hidden");
+          if (isOpen) {
+            mobileMenu.classList.add("hidden");
+            iconOpen.classList.remove("hidden");
+            iconClose.classList.add("hidden");
+            menuBtn.setAttribute("aria-expanded", "false");
+          } else {
+            mobileMenu.classList.remove("hidden");
+            iconOpen.classList.add("hidden");
+            iconClose.classList.remove("hidden");
+            menuBtn.setAttribute("aria-expanded", "true");
+          }
+        });
+
+        // Close when clicking outside
+        document.addEventListener("click", (e) => {
+          if (!menuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+            mobileMenu.classList.add("hidden");
+            iconOpen.classList.remove("hidden");
+            iconClose.classList.add("hidden");
+            menuBtn.setAttribute("aria-expanded", "false");
+          }
+        });
+
+        // Close on Escape key
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && !mobileMenu.classList.contains("hidden")) {
+            mobileMenu.classList.add("hidden");
+            iconOpen.classList.remove("hidden");
+            iconClose.classList.add("hidden");
+            menuBtn.setAttribute("aria-expanded", "false");
+          }
+        });
+      }
+
+      // Intersection Observer for Subtle Scroll-Fade Animations
+      const observerCallback = (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      };
+
+      const observer = new IntersectionObserver(observerCallback, {
+        threshold: 0.12,
+        rootMargin: "0px 0px -40px 0px",
+      });
+
+      const targets = document.querySelectorAll(
+        ".fade-in-element, [data-reveal]",
+      );
+      targets.forEach((target) => observer.observe(target));
+    </script>
+  </body>
+</html>
