@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://onthego-ceylon.pages.dev/sitemap-index.xml

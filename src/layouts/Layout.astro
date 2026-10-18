@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import SEO from "../components/SEO.astro";
 
 interface Props {
   title?: string;
@@ -14,7 +15,9 @@ const {
   description = "Experience Sri Lanka with On The Go Ceylon - Solutions on Wheels. Tailor-made luxury private tours, chauffeur guides, and unforgettable journeys across the Pearl of the Indian Ocean.",
   image = "https://images.unsplash.com/photo-1586861635167-e5223aadc9fe?auto=format&fit=crop&w=1200&q=80",
   type = "website",
-  canonical = Astro.url.href,
+  canonical = Astro.site
+    ? new URL(Astro.url.pathname, Astro.site).href
+    : Astro.url.href,
 } = Astro.props;
 
 const currentPath = Astro.url.pathname;
@@ -58,31 +61,7 @@ const navLinks = [
       }
     </script>
 
-    <!-- SEO Meta Tags -->
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <meta
-      name="keywords"
-      content="Sri Lanka tours, On The Go Ceylon, Solutions on Wheels, Sigiriya, Ella, Kandy, Yala safari, private chauffeur Sri Lanka, luxury Sri Lanka travel"
-    />
-    <meta name="robots" content="index, follow" />
-    <link rel="canonical" href={canonical} />
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content={type} />
-    <meta property="og:url" content={canonical} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:image" content={image} />
-    <meta property="og:site_name" content="On The Go Ceylon" />
-    <meta property="og:locale" content="en_US" />
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content={canonical} />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={image} />
+    <SEO title={title} description={description} image={image} type={type} canonical={canonical} />
 
     <link rel="icon" type="image/png" href="/flogo.png" />
   </head>
