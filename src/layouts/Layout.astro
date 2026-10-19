@@ -247,7 +247,7 @@ const navLinks = [
       <!-- Mobile Dropdown Menu -->
       <div
         id="mobile-menu"
-        class="md:hidden border-t border-gray-200 bg-white px-4 pt-3 pb-6 space-y-3 transition-all duration-700 ease-in-out shadow-lg opacity-0 -translate-y-12 pointer-events-none invisible max-h-0 overflow-hidden"
+        class="md:hidden border-t border-gray-200 dark:border-gray-800 bg-white dark:bg-brand-dark px-4 pt-3 pb-6 space-y-3 transition-all duration-700 ease-in-out shadow-lg opacity-0 -translate-y-12 pointer-events-none invisible max-h-0 overflow-hidden"
       >
         {
           navLinks.map((link) => {
@@ -257,10 +257,10 @@ const navLinks = [
             return (
               <a
                 href={link.href}
-                class={`block py-2.5 px-3 rounded-md text-base font-semibold transition-colors ${
+                class={`block py-2.5 px-3 rounded-md text-base font-semibold dark:text-gray-200 transition-colors ${
                   isActive
                     ? "bg-gray-100 dark:bg-white/5 text-brand-gold"
-                    : "text-brand-black dark:text-white hover:bg-gray-50 dark:hover:bg-white/5 hover:text-brand-gold"
+                    : "text-brand-black hover:bg-gray-50 dark:hover:bg-white/5 hover:text-brand-gold"
                 }`}
               >
                 {link.label}
