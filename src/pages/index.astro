@@ -156,7 +156,7 @@ const solutionsOnWheels = [
     </div>
   </section>
 
-  <!-- Featured Destinations (Infinite Marquee) -->
+  <!-- Featured Destinations Carousel -->
   <section class="py-24 bg-gray-50 dark:bg-brand-dark relative transition-colors duration-200 overflow-hidden">
 
     <!-- Section Header (constrained width) -->
@@ -172,27 +172,29 @@ const solutionsOnWheels = [
       </div>
     </div>
 
-    <!-- Full-Width CSS Marquee Track -->
+    <!-- Swiper Carousel -->
     <div class="w-full overflow-hidden">
-      <div class="animate-marquee flex gap-6 w-max">
-
-        <!-- First set of cards -->
-        {featuredDestinations.map((dest) => (
-          <a
-            href={dest.link}
-            class="group relative shrink-0 w-[300px] md:w-[420px] h-[500px] rounded-2xl overflow-hidden shadow-xl border border-white/10 hover:border-brand-gold/60 transition-all duration-300"
-          >
+      <div class="swiper featured-swiper w-full !px-4 md:!px-8 overflow-hidden">
+        <div class="swiper-wrapper">
+          {featuredDestinations.map((dest) => (
+            <div class="swiper-slide">
+            <a
+              href={dest.link}
+              class="group relative block w-full h-[500px] rounded-2xl overflow-hidden shadow-xl border border-transparent hover:border-brand-gold/50 transition-colors duration-500"
+            >
             <!-- Background Image -->
-            <Image
-              src={dest.image}
-              alt={dest.name}
-              width={840}
-              height={1000}
-              class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-              loading="lazy"
-            />
+            <div class="absolute inset-0 overflow-hidden">
+              <Image
+                src={dest.image}
+                alt={dest.name}
+                width={840}
+                height={1000}
+                class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                loading="lazy"
+              />
+            </div>
             <!-- Dark Gradient Overlay -->
-            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10 group-hover:from-black/95 transition-all duration-300"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
             <!-- Content -->
             <div class="relative z-10 h-full p-6 sm:p-8 flex flex-col justify-end">
               <span class="inline-block text-xs font-semibold uppercase tracking-wider text-brand-gold mb-2">
@@ -211,48 +213,37 @@ const solutionsOnWheels = [
                 </svg>
               </div>
             </div>
-          </a>
-        ))}
-
-        <!-- Duplicate set for seamless infinite loop -->
-        {featuredDestinations.map((dest) => (
-          <a
-            href={dest.link}
-            class="group relative shrink-0 w-[300px] md:w-[420px] h-[500px] rounded-2xl overflow-hidden shadow-xl border border-white/10 hover:border-brand-gold/60 transition-all duration-300"
-            aria-hidden="true"
-            tabindex="-1"
-          >
-            <Image
-              src={dest.image}
-              alt={dest.name}
-              width={840}
-              height={1000}
-              class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-              loading="lazy"
-            />
-            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10 group-hover:from-black/95 transition-all duration-300"></div>
-            <div class="relative z-10 h-full p-6 sm:p-8 flex flex-col justify-end">
-              <span class="inline-block text-xs font-semibold uppercase tracking-wider text-brand-gold mb-2">
-                {dest.category}
-              </span>
-              <h3 class="text-xl sm:text-2xl font-bold text-white group-hover:text-brand-gold transition-colors leading-tight">
-                {dest.name}
-              </h3>
-              <p class="text-xs sm:text-sm text-gray-300 mt-2 line-clamp-2 leading-relaxed">
-                {dest.tagline}
-              </p>
-              <div class="mt-4 flex items-center gap-2 text-xs font-bold text-brand-gold">
-                <span>Discover highlights</span>
-                <svg class="w-4 h-4 transform group-hover:translate-x-1.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </div>
+            </a>
             </div>
-          </a>
-        ))}
-
+          ))}
+        </div>
       </div>
     </div>
+
+    <script is:inline>
+      document.addEventListener("DOMContentLoaded", () => {
+        if (document.querySelector(".featured-swiper")) {
+          var swiper = new Swiper(".featured-swiper", {
+            spaceBetween: 24,
+            loop: true,
+            grabCursor: true,
+            speed: 6000,
+            autoplay: {
+              delay: 0,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true,
+            },
+            resistanceRatio: 0.85,
+            breakpoints: {
+              320: { slidesPerView: 1.2 },
+              768: { slidesPerView: 2.5 },
+              1024: { slidesPerView: 3.5 },
+              1280: { slidesPerView: 4 },
+            },
+          });
+        }
+      });
+    </script>
 
     <!-- "View all" link -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 text-center fade-in-element">
@@ -266,23 +257,7 @@ const solutionsOnWheels = [
         </svg>
       </a>
     </div>
-
-    <style>
-      @keyframes marquee {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-50%); }
-      }
-
-      .animate-marquee {
-        animation: marquee 38s linear infinite;
-      }
-
-      .animate-marquee:hover {
-        animation-play-state: paused;
-      }
-    </style>
   </section>
-
 
   <!-- Solutions on Wheels Section -->
   <section class="py-20 bg-gray-100 dark:bg-brand-black border-y border-gray-200 dark:border-white/5 transition-colors duration-200">

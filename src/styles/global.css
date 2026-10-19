@@ -72,3 +72,7 @@
 #site-header[data-header-overlay]:not(.is-solid) img {
   filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
 }
+
+.swiper-wrapper {
+  transition-timing-function: linear !important;
+}
