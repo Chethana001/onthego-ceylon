@@ -29,47 +29,36 @@
   transform: translateY(0);
 }
 
-/* ─────────────────────────────────────────────────────────────────────────
-   Premium floating header (homepage only, marked by data-header-overlay):
-   dark glass + white links while the page is at the very top so the hero
-   image shines through; JS toggles .is-solid for the solid white state.
-   ───────────────────────────────────────────────────────────────────────── */
-
-/* Transparent floating glass state (only until the user scrolls down) */
-#site-header[data-header-overlay]:not(.is-solid) {
-  background-color: rgba(0, 0, 0, 0.2);
-  border-bottom-color: rgba(255, 255, 255, 0.1);
-  box-shadow: none;
-}
+/* Homepage header stays as dark glass over the hero image. */
 
 /* Nav links turn white over the dark hero image */
-#site-header[data-header-overlay]:not(.is-solid) .nav-link:not(.nav-link-active) {
+#site-header[data-header-overlay] .nav-link:not(.nav-link-active) {
   color: #ffffff;
 }
 
-#site-header[data-header-overlay]:not(.is-solid) .nav-link:hover,
-#site-header[data-header-overlay]:not(.is-solid) .nav-link:focus-visible {
+#site-header[data-header-overlay] .nav-link:hover,
+#site-header[data-header-overlay] .nav-link:focus-visible {
   color: var(--color-brand-gold);
 }
 
 /* Control buttons become quiet glass chips */
-#site-header[data-header-overlay]:not(.is-solid) .nav-control {
+#site-header[data-header-overlay] .nav-control {
   color: #ffffff;
   border-color: rgba(255, 255, 255, 0.25);
   background-color: rgba(255, 255, 255, 0.08);
 }
 
-#site-header[data-header-overlay]:not(.is-solid) .nav-control:hover {
+#site-header[data-header-overlay] .nav-control:hover {
   color: var(--color-brand-gold);
   background-color: rgba(255, 255, 255, 0.16);
 }
 
-#site-header[data-header-overlay]:not(.is-solid) .nav-control svg {
+#site-header[data-header-overlay] .nav-control svg {
   color: inherit;
 }
 
 /* Subtle white glow so the logo's black parts don't get lost on the dark hero */
-#site-header[data-header-overlay]:not(.is-solid) img {
+#site-header[data-header-overlay] img {
   filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
 }
 

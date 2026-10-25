@@ -67,13 +67,13 @@ const navLinks = [
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@14.3.0/swiper-bundle.min.css" />
   </head>
   <body
-    class="min-h-screen flex flex-col bg-slate-50 text-gray-600 dark:bg-[#111111] dark:text-white font-sans antialiased selection:bg-brand-gold selection:text-brand-black transition-colors duration-200"
+    class="m-0 p-0 min-h-screen flex flex-col bg-slate-50 text-gray-600 dark:bg-[#111111] dark:text-white font-sans antialiased selection:bg-brand-gold selection:text-brand-black transition-colors duration-200"
   >
-    <!-- Navigation Header (light-mode: floats as dark glass over the homepage hero, turns solid after scrolling) -->
+    <!-- Navigation Header (dark glass over the homepage hero) -->
     <header
       id="site-header"
       data-header-overlay={isHome ? "true" : undefined}
-      class="sticky top-0 inset-x-0 z-50 border-b border-gray-200 dark:border-white/10 bg-white/95 dark:bg-brand-dark/95 backdrop-blur-md shadow-sm transition-[background-color,border-color,box-shadow] duration-300"
+      class={`${isHome ? "fixed top-0 left-0 bg-black/20 backdrop-blur-md" : "sticky top-0 left-0 bg-white dark:bg-brand-dark"} z-50 w-full transition-colors duration-300`}
     >
       <div
         class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between"
@@ -461,20 +461,6 @@ const navLinks = [
 
       if (btnDesktop) btnDesktop.addEventListener("click", toggleTheme);
       if (btnMobile) btnMobile.addEventListener("click", toggleTheme);
-
-      // Scroll-aware Header (homepage): transparent glass over the hero, solid after scrolling
-      const header = document.getElementById("site-header");
-      if (header && header.hasAttribute("data-header-overlay")) {
-        const updateHeader = () => {
-          if (window.scrollY > 24) {
-            header.classList.add("is-solid");
-          } else {
-            header.classList.remove("is-solid");
-          }
-        };
-        updateHeader();
-        window.addEventListener("scroll", updateHeader, { passive: true });
-      }
 
       // Responsive Hamburger Menu
       const menuBtn = document.getElementById("mobile-menu-btn");
