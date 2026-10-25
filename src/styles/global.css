@@ -29,39 +29,6 @@
   transform: translateY(0);
 }
 
-/* Homepage header stays as dark glass over the hero image. */
-
-/* Nav links turn white over the dark hero image */
-#site-header[data-header-overlay] .nav-link:not(.nav-link-active) {
-  color: #ffffff;
-}
-
-#site-header[data-header-overlay] .nav-link:hover,
-#site-header[data-header-overlay] .nav-link:focus-visible {
-  color: var(--color-brand-gold);
-}
-
-/* Control buttons become quiet glass chips */
-#site-header[data-header-overlay] .nav-control {
-  color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.25);
-  background-color: rgba(255, 255, 255, 0.08);
-}
-
-#site-header[data-header-overlay] .nav-control:hover {
-  color: var(--color-brand-gold);
-  background-color: rgba(255, 255, 255, 0.16);
-}
-
-#site-header[data-header-overlay] .nav-control svg {
-  color: inherit;
-}
-
-/* Subtle white glow so the logo's black parts don't get lost on the dark hero */
-#site-header[data-header-overlay] img {
-  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
-}
-
 .swiper-wrapper {
   transition-timing-function: linear !important;
 }

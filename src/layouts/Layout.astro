@@ -21,8 +21,6 @@ const {
 } = Astro.props;
 
 const currentPath = Astro.url.pathname;
-// The homepage has a cinematic dark hero image, so the header can float transparently over it.
-const isHome = currentPath === "/";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -69,11 +67,10 @@ const navLinks = [
   <body
     class="m-0 p-0 min-h-screen flex flex-col bg-slate-50 text-gray-600 dark:bg-[#111111] dark:text-white font-sans antialiased selection:bg-brand-gold selection:text-brand-black transition-colors duration-200"
   >
-    <!-- Navigation Header (dark glass over the homepage hero) -->
+    <!-- Frosted navigation header shared across all pages -->
     <header
       id="site-header"
-      data-header-overlay={isHome ? "true" : undefined}
-      class={`${isHome ? "fixed top-0 left-0 bg-black/20 backdrop-blur-md" : "sticky top-0 left-0 bg-white dark:bg-brand-dark"} z-50 w-full transition-colors duration-300`}
+      class="fixed top-0 w-full z-50 bg-white/60 dark:bg-[#111]/60 backdrop-blur-md border-b border-gray-200 dark:border-gray-800 text-gray-900 dark:text-white transition-all"
     >
       <div
         class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between"
